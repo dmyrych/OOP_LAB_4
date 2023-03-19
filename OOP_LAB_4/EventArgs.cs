@@ -33,7 +33,8 @@ namespace OOP_LAB_4
     // Клас, що реалізує користувацьку шину подій з обмеженням швидкості надсилання подій
     public class EventManager
     {
-        public List<EventHandler> getHandlersByPriority(int priority)
+        private List<PrioritySubscriber> _subscribers = new List<PrioritySubscriber>();
+        public List<EventHandler> GetHandlersByPriority(int priority)
         {
             List<EventHandler> handlers = new List<EventHandler>();
             foreach (EventHandler handler in DataEvent.GetInvocationList())
@@ -93,8 +94,8 @@ namespace OOP_LAB_4
         {
             DataEvent -= handler;
         }
-        // Знизу написані методи для другого завдання, ім'я змінної пріус тому що priority було зайняте
-        public Dictionary<int, List<EventHandler>> GetHandlersByPriority(int prius)
+        // Знизу написані методи для другого завдання
+        public Dictionary<int, List<EventHandler>> GetHandlersByPriority()
         {
             var subscribersByPriority = new Dictionary<int, List<EventHandler>>();
 
@@ -142,5 +143,4 @@ namespace OOP_LAB_4
             Console.WriteLine($"{Name} ({Priority}) received data: {args.Data}");
         }
     }
-
 }
