@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace OOP_LAB_4
 {
+    // Клас WorkFlowEventArgs наслідується від EventArgs і містить одне властивість Message.
     public class WorkFlowEventArgs : EventArgs
     {
         public string Message { get; set; }
     }
+
+    // Клас WorkflowStep містить подію Completed, яка сповіщає, що крок виконаний.
+    // Він містить метод OnCompleted(), який сприяє виклику події Completed.
+    // Він містить метод Execute(), який виконує крок і сприяє виклику події Completed.
     public class WorkflowStep
     {
         public event EventHandler<WorkFlowEventArgs> Completed;
@@ -26,6 +31,11 @@ namespace OOP_LAB_4
             OnCompleted(new WorkFlowEventArgs { Message = $"Step {GetType().Name} completed." });
         }
     }
+
+    // Клас WorkflowEngine містить подію StepCompleted, яка сповіщає про завершення кроку.
+    // Він містить метод Run(), який приймає кілька параметрів WorkflowStep, додає обробник події Completed
+    // до кожного кроку і викликає метод Execute() першого кроку.
+    // Він містить метод OnStepCompleted(), який сприяє виклику події StepCompleted.
     public class WorkflowEngine
     {
         public event EventHandler<WorkFlowEventArgs> StepCompleted;
@@ -49,6 +59,5 @@ namespace OOP_LAB_4
         {
             StepCompleted?.Invoke(this, e);
         }
-
     }
 }
